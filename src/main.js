@@ -73,6 +73,18 @@ async function begin(){
  }
  counter.hidden=true;game.start();startMusic();shell.classList.add('playing');$('#hud').hidden=false;$('#mobileControls').hidden=false;
 }
+function enterMobileGameMode(){
+ const isMobile=matchMedia('(pointer:coarse)').matches||innerWidth<=900;
+ if(!isMobile)return;
+ document.activeElement?.blur();
+ const fullscreenTarget=document.documentElement;
+ const fullscreenPromise=document.fullscreenElement
+  ?Promise.resolve()
+  :(fullscreenTarget.requestFullscreen?.({navigationUI:'hide'})||fullscreenTarget.webkitRequestFullscreen?.()||Promise.resolve());
+ Promise.resolve(fullscreenPromise)
+  .then(()=>screen.orientation?.lock?.('landscape'))
+  .catch(()=>{});
+}
 function render(ranking,score){$('#ranking').replaceChildren(...ranking.slice(0,5).map((entry,i)=>{const li=document.createElement('li');if(entry.name===player&&entry.score===Math.round(score))li.className='current';li.innerHTML=`<span>${i+1}º</span><span></span><span>${entry.score.toLocaleString('pt-BR')} pts</span>`;li.children[1].textContent=entry.name;return li;}));}
 $('#startForm').addEventListener('submit',async e=>{
  e.preventDefault();
@@ -81,6 +93,7 @@ $('#startForm').addEventListener('submit',async e=>{
  phone=$('#playerPhone').value.trim();
  const digits=phone.replace(/\D/g,'');
  if(!player||digits.length<10){systemToast('PREENCHA NOME E TELEFONE COM DDD');return;}
+ enterMobileGameMode();
  button.disabled=true;button.textContent='SALVANDO...';
  try{
   const response=await fetch('/api/participantes',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nome:player,telefone:phone})});
