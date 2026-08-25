@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#183d2c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon-192.png">
+  <title>Rota do Café</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <div id="game" role="img" aria-label="Jogo 3D Rota do Café"></div>
+
+    <header class="topbar">
+      <div class="brand"><span class="brand-bean">◆</span><span>ROTA DO<br><b>CAFÉ</b></span></div>
+      <div class="hud" id="hud" hidden>
+        <div><small>PONTOS</small><strong id="score">0</strong></div>
+        <div><small>COMBO</small><strong id="combo">x1</strong></div>
+        <div><small>TEMPO</small><strong id="time">60</strong></div>
+      </div>
+      <div class="top-actions">
+        <button class="sound-button" id="fullscreenButton" aria-label="Ativar tela cheia">⛶</button>
+        <button class="sound-button" id="soundButton" aria-label="Ativar ou desativar som">♪</button>
+      </div>
+    </header>
+
+    <section class="screen active" id="startScreen">
+      <div class="hero-card">
+        <p class="eyebrow">A COLHEITA COMEÇOU</p>
+        <h1>Corra pela<br><em>melhor safra!</em></h1>
+        <p class="lead">Colete apenas os cafés maduros, desvie dos perigos da lavoura e chegue ao topo do ranking.</p>
+        <div class="item-guide" aria-label="Objetivo do jogo">
+          <span class="guide-good"><b>●</b> Café maduro <strong>+100</strong></span>
+          <span class="guide-bad"><b>▲</b> Verdes e obstáculos <strong>evite</strong></span>
+        </div>
+        <form id="startForm">
+          <label for="playerName">Preencha seus dados para participar</label>
+          <div class="input-row">
+            <input id="playerName" maxlength="40" autocomplete="name" placeholder="Seu nome" aria-label="Nome completo" required>
+            <input id="playerPhone" type="tel" maxlength="15" autocomplete="tel" inputmode="numeric" placeholder="(00) 00000-0000" aria-label="Telefone com DDD" required>
+            <button type="submit" class="primary">JOGAR <span>›</span></button>
+          </div>
+          <label class="privacy-check"><input id="privacyConsent" type="checkbox" required><span>Autorizo o uso destes dados somente para identificação no ranking e contato sobre a premiação.</span></label>
+        </form>
+        <div class="how-to"><span>↑</span> Pule <i></i><span>↓</span> Segure para agachar <i class="pad-separator"></i><span class="pad-key">A</span><b class="pad-copy">Pula</b><span class="pad-key">B</span><b class="pad-copy">Agacha</b></div>
+        <button class="admin-link" id="adminButton" type="button">PAINEL DO EVENTO</button>
+      </div>
+    </section>
+
+    <section class="screen" id="endScreen">
+      <div class="result-card">
+        <p class="eyebrow">FIM DA COLHEITA</p>
+        <h2 id="resultTitle">Boa corrida!</h2>
+        <div class="final-score"><small>SUA PONTUAÇÃO</small><strong id="finalScore">0</strong><span>pontos</span></div>
+        <div class="match-stats" id="matchStats"></div>
+        <div class="ranking-wrap">
+          <h3>Ranking da fazenda</h3>
+          <ol id="ranking"></ol>
+        </div>
+        <div class="result-actions">
+          <button class="primary" id="playAgain">PRÓXIMO PARTICIPANTE</button>
+          <button class="secondary" id="changePlayer">TROCAR JOGADOR</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="toast" id="toast"></div>
+    <div class="countdown" id="countdown" hidden aria-live="assertive"></div>
+    <section class="admin-panel" id="adminPanel" hidden>
+      <div class="admin-card">
+        <button class="admin-close" id="adminClose" aria-label="Fechar">×</button>
+        <p class="eyebrow">PAINEL DO EVENTO</p>
+        <h2>Participantes e ranking</h2>
+        <p id="adminSummary"></p>
+        <div class="admin-list" id="adminList"></div>
+        <div class="admin-actions">
+          <button class="primary" id="exportRanking">EXPORTAR CSV</button>
+          <button class="secondary danger" id="clearRanking">ZERAR RANKING</button>
+        </div>
+      </div>
+    </section>
+    <div class="gamepad-status" aria-live="polite"><span>●</span> CONTROLE PRONTO</div>
+    <div class="mobile-controls" id="mobileControls" hidden>
+      <button data-action="left" aria-label="Deslizar">↓</button>
+      <button data-action="jump" aria-label="Pular">↑</button>
+      <button data-action="right" aria-label="Pular">↑</button>
+    </div>
+    <div class="launch-warning" id="launchWarning" hidden>
+      <strong>O jogo precisa do servidor local.</strong>
+      <span>Feche esta página e abra o arquivo <b>INICIAR_JOGO.bat</b>.</span>
+    </div>
+  </main>
+  <script>
+    if (location.protocol === 'file:') document.querySelector('#launchWarning').hidden = false;
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
