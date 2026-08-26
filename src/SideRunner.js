@@ -1,4 +1,4 @@
-const W=480,H=270,G=220,DURATION=30,START_SPEED=155,SPEED_GAIN=4.4,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
+const W=480,H=270,G=220,DURATION=30,START_SPEED=160,SPEED_GAIN=4.6,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const LEVEL=[
  ['coffee',3],['rock'],['coffee',3,'arc'],['branch'],['fence'],['platform',36],['green'],
