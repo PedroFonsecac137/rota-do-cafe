@@ -106,7 +106,7 @@ export class Game extends EventTarget{
  }
  platform(o){if(!this.platformArt){this.platformArt=new Image();this.platformArt.src='/assets/items/capri/platform-capri-v1.png';}const g=this.g,x=o.x,y=G-o.height;if(this.platformArt.complete&&this.platformArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.platformArt,x-2,y-3,o.w+4,o.height+5);g.restore();return;}this.rect(x,y,o.w,14,'#a76835');}
  capriSack(o){if(!this.sackArt){this.sackArt=new Image();this.sackArt.src='/assets/items/capri/sack-capri-v2.png';}const g=this.g,x=o.x,y=o.y,bob=Math.sin(this.t*6)*1.5;if(this.sackArt.complete&&this.sackArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.sackArt,x-4,y-5+bob,42,42);g.restore();return;}this.oval(x+16,y+19,14,18,'#e7c995');}
- fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v1.png';}const g=this.g,x=o.x,y=G-47;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-7,y-3,64,50);g.restore();return;}this.rect(x,y,50,44,'#9b6336');}
+ fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v1.png';}const g=this.g,x=o.x,y=G-44;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-5,G-55,58,59);g.restore();return;}this.rect(x-2,y,52,44,'#9b6336');}
  holeClean(o){
   const g=this.g,x=o.x+o.w/2,y=G-2;
   g.save();g.lineJoin='round';
