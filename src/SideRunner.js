@@ -1,4 +1,4 @@
-const W=480,H=270,G=220,DURATION=30,START_SPEED=126,SPEED_GAIN=2,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
+const W=480,H=270,G=220,DURATION=30,START_SPEED=142,SPEED_GAIN=3.2,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
 const rnd=(a,b)=>a+Math.random()*(b-a);
 export class Game extends EventTarget{
  constructor(el){super();this.container=el;this.canvas=document.createElement('canvas');this.canvas.width=W;this.canvas.height=H;el.append(this.canvas);this.g=this.canvas.getContext('2d',{alpha:false,desynchronized:true});this.renderScale=1;this.runner=new Image();this.runner.src='/assets/characters/producer-run-capricornio-v1.png';this.actions=new Image();this.actions.src='/assets/characters/producer-actions-capricornio-v1.png';this.specialActions=new Image();this.specialActions.src='/assets/characters/producer-crouch-fall-capricornio-v1.png';this.rollArt=new Image();this.rollArt.src='/assets/characters/producer-roll-capricornio-v1.png';this.itemsArt=new Image();this.itemsArt.src='/assets/items/coffee-items.png?v=3';this.farmArt=new Image();this.farmArt.src='/assets/items/farm-obstacles-v2.png?v=1';this.birdArt=new Image();this.birdArt.src='/assets/items/bird-flight-chibi-clean-v4-alpha.png?v=1';this.background=new Image();this.background.src='/assets/backgrounds/coffee-farm-chibi.png?v=4';this.mode='menu';this.t=0;this.last=performance.now();this.objects=[];this.particles=[];this.assetsReady=false;Promise.all([this.runner,this.actions,this.specialActions,this.rollArt,this.itemsArt,this.farmArt,this.birdArt,this.background].map(i=>i.decode().catch(()=>{}))).then(()=>this.assetsReady=true);addEventListener('resize',()=>this.resize());this.resize();requestAnimationFrame(n=>this.loop(n));}
@@ -48,7 +48,7 @@ export class Game extends EventTarget{
    this.objects.push({type:'capriSack',x:500,y:G-38,w:33,h:38,good:true,points:0});
    return;
   }
-  if(this.elapsed>2.5&&Math.random()<.18){
+  if(this.elapsed>2&&Math.random()<.25){
    const height=Math.random()<.5?36:46,w=118,x=500;
    this.objects.push({type:'platform',x,y:G-height,w,h:14,height,solid:true});
    for(let i=0;i<4;i++)this.objects.push({type:'coffee',x:x+12+i*29,y:G-height-52-(i===1||i===2?8:0),w:18,h:21,good:true,points:100});
@@ -63,6 +63,10 @@ export class Game extends EventTarget{
   const h=type==='green'?22:type==='branch'?12:type==='bird'||type==='bees'?22:type==='hole'?9:type==='rake'?14:type==='crate'?31:type==='fence'?38:25;
   const y=type==='bird'||type==='bees'?146:G-h;
   this.objects.push({type,x:500,y,w,h,good:false,points:type==='borer'||type==='bird'||type==='bees'?-100:-70});
+  if(this.elapsed>8&&Math.random()<.3&&!['bird','bees','hole','rake'].includes(type)){
+   const secondPool=['rock','branch','green','crate','fence'],second=secondPool[Math.floor(Math.random()*secondPool.length)],sw=second==='branch'?38:second==='crate'?32:second==='fence'?42:25,sh=second==='branch'?12:second==='crate'?31:second==='fence'?38:25;
+   this.objects.push({type:second,x:582,y:G-sh,w:sw,h:sh,good:false,points:-70});
+  }
  }
  hit(o){o.hit=true;if(o.type==='capriSack'){this.sacks++;this.bonusTime=5;this.emit('feedback',{good:true,text:'SACA CAPRI — PONTOS x2 POR 5s'});for(let i=0;i<14;i++)this.particles.push({x:o.x+14,y:o.y+12,vx:rnd(-85,85),vy:rnd(-120,-35),life:rnd(.5,.9),c:i%2?C.yellow:'#8d263f'});return;}if(o.good){this.combo++;this.maxCombo=Math.max(this.maxCombo,this.combo);this.collected++;const comboMultiplier=this.combo>=5?2:1,capriMultiplier=this.bonusTime>0?2:1,multiplier=comboMultiplier*capriMultiplier,gained=o.points*multiplier;this.basePoints+=o.points;this.bonusPoints+=gained-o.points;this.score+=gained;this.emit('feedback',{good:true,text:multiplier>1?`+${gained} BÔNUS x${multiplier}`:`+${gained} CAFÉ MADURO`});for(let i=0;i<8;i++)this.particles.push({x:o.x+8,y:o.y+8,vx:rnd(-70,70),vy:rnd(-105,-35),life:rnd(.4,.7),c:C.yellow});return;}this.combo=0;this.mistakes++;this.dying=true;this.deathTimer=0;this.deathType=o.type==='hole'?'fall':'hit';this.slide=0;this.slideHold=false;this.vy=0;this.emit('feedback',{good:false,text:o.type==='hole'?'CAIU NO BURACO!':'BATEU! FIM DE JOGO'});for(let i=0;i<12;i++)this.particles.push({x:o.x+8,y:o.y+8,vx:rnd(-80,80),vy:rnd(-115,-40),life:rnd(.45,.8),c:C.red});}
  finish(){if(this.mode==='ended')return;this.mode='ended';this.emit('end',{collected:this.collected,mistakes:this.mistakes,maxCombo:this.maxCombo,basePoints:this.basePoints,bonusPoints:this.bonusPoints,sacks:this.sacks,golden:0,accuracy:Math.round(this.collected/Math.max(1,this.collected+this.mistakes)*100)});}
