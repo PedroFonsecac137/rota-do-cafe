@@ -39,9 +39,8 @@ export class Game extends EventTarget{
  spawn(){
   if(this.objects.some(o=>o.x>350))return;
   const coffee=()=>{
-   const high=Math.random()<.3;
-   this.objects.push({type:'coffee',x:500,y:high?156:184,w:18,h:21,good:true,points:100});
-   if(Math.random()<.45)this.objects.push({type:'coffee',x:532,y:high?146:184,w:18,h:21,good:true,points:100});
+   const count=Math.random()<.62?3:2,arc=Math.random()<.42;
+   for(let i=0;i<count;i++)this.objects.push({type:'coffee',x:500+i*30,y:arc?184-(i===1?28:12):184,w:18,h:21,good:true,points:100});
   };
   const progress=Math.min(1,this.elapsed/DURATION);
   if(!this.sackSpawned&&this.elapsed>7&&Math.random()<.16){
@@ -52,10 +51,10 @@ export class Game extends EventTarget{
   if(this.elapsed>2.5&&Math.random()<.18){
    const height=Math.random()<.5?36:46,w=118,x=500;
    this.objects.push({type:'platform',x,y:G-height,w,h:14,height,solid:true});
-   for(let i=0;i<3;i++)this.objects.push({type:'coffee',x:x+22+i*32,y:G-height-52,w:18,h:21,good:true,points:100});
+   for(let i=0;i<4;i++)this.objects.push({type:'coffee',x:x+12+i*29,y:G-height-52-(i===1||i===2?8:0),w:18,h:21,good:true,points:100});
    return;
   }
-  const coffeeChance=.46-progress*.06;
+  const coffeeChance=.6-progress*.05;
   if(Math.random()<coffeeChance){coffee();return;}
   const easy=['rock','branch','green','borer','bird','hole','crate','rake','bees','fence'];
   const advanced=['rock','branch','green','borer','bird','hole','crate','rake','bees','fence','bird','hole','crate','rock','rake','bees','fence'];
@@ -101,8 +100,8 @@ export class Game extends EventTarget{
   if(o.type==='hole'){this.holeClean(o);return;}
   this.item(o);
  }
- platform(o){const g=this.g,x=o.x,y=G-o.height;g.save();g.fillStyle='rgba(32,38,24,.23)';g.beginPath();g.ellipse(x+o.w/2,y+17,o.w*.43,4,0,0,7);g.fill();g.fillStyle='#713f28';g.strokeStyle='#34251d';g.lineWidth=2;g.beginPath();g.roundRect(x,y,o.w,14,4);g.fill();g.stroke();g.fillStyle='#b9783e';g.fillRect(x+5,y+3,o.w-10,4);g.fillStyle='#8d263f';g.fillRect(x+12,y+9,o.w-24,2);for(let px=x+12;px<x+o.w-5;px+=28){g.fillStyle='#4e3022';g.fillRect(px,y+13,5,9);}g.restore();}
- capriSack(o){const g=this.g,x=o.x,y=o.y,bob=Math.sin(this.t*6)*1.5;g.save();g.translate(0,bob);g.fillStyle='rgba(28,34,22,.24)';g.beginPath();g.ellipse(x+17,y+38,15,3,0,0,7);g.fill();g.fillStyle='#e7c995';g.strokeStyle='#5a3827';g.lineWidth=2;g.beginPath();g.moveTo(x+8,y+5);g.quadraticCurveTo(x+16,y+1,x+25,y+5);g.lineTo(x+29,y+30);g.quadraticCurveTo(x+17,y+39,x+4,y+30);g.closePath();g.fill();g.stroke();g.strokeStyle='#8d263f';g.lineWidth=2;g.beginPath();g.moveTo(x+7,y+9);g.quadraticCurveTo(x+17,y+12,x+27,y+9);g.stroke();g.fillStyle='#8d263f';g.font='bold 7px sans-serif';g.textAlign='center';g.fillText('CAPRI',x+17,y+24);g.restore();}
+ platform(o){const g=this.g,x=o.x,y=G-o.height;g.save();g.fillStyle='rgba(32,38,24,.2)';g.beginPath();g.ellipse(x+o.w/2,G+2,o.w*.46,4,0,0,7);g.fill();g.fillStyle='#69402a';g.strokeStyle='#34251d';g.lineWidth=2;for(const px of [x+12,x+o.w-18]){g.beginPath();g.roundRect(px,y+10,7,o.height-8,3);g.fill();g.stroke();}const wood=g.createLinearGradient(0,y,0,y+15);wood.addColorStop(0,'#c78a4d');wood.addColorStop(1,'#774329');g.fillStyle=wood;g.beginPath();g.roundRect(x,y,o.w,15,5);g.fill();g.stroke();g.fillStyle='#4f7d35';g.beginPath();g.roundRect(x-1,y-3,o.w+2,7,4);g.fill();g.strokeStyle='#294d2c';g.stroke();g.fillStyle='#91b849';for(let px=x+5;px<x+o.w;px+=13){g.beginPath();g.arc(px,y-1-(px%3),3,0,7);g.fill();}g.strokeStyle='#e0a760';g.lineWidth=1.4;for(let px=x+20;px<x+o.w;px+=30){g.beginPath();g.moveTo(px,y+5);g.lineTo(px-5,y+11);g.stroke();}g.fillStyle='#8d263f';g.fillRect(x+14,y+11,o.w-28,2);g.restore();}
+ capriSack(o){const g=this.g,x=o.x,y=o.y,bob=Math.sin(this.t*6)*1.5;g.save();g.translate(0,bob);g.fillStyle='rgba(28,34,22,.24)';g.beginPath();g.ellipse(x+17,y+38,15,3,0,0,7);g.fill();const cloth=g.createLinearGradient(x,y,x+32,y+35);cloth.addColorStop(0,'#f6dfac');cloth.addColorStop(1,'#c99b61');g.fillStyle=cloth;g.strokeStyle='#5a3827';g.lineWidth=2;g.beginPath();g.moveTo(x+8,y+5);g.quadraticCurveTo(x+16,y+1,x+25,y+5);g.lineTo(x+29,y+30);g.quadraticCurveTo(x+17,y+39,x+4,y+30);g.closePath();g.fill();g.stroke();g.strokeStyle='#8d263f';g.lineWidth=2;g.beginPath();g.moveTo(x+7,y+9);g.quadraticCurveTo(x+17,y+12,x+27,y+9);g.stroke();g.fillStyle='#8d263f';g.beginPath();g.ellipse(x+17,y+20,4,7,.45,0,7);g.fill();g.strokeStyle='#f1d49b';g.lineWidth=1;g.beginPath();g.moveTo(x+15,y+25);g.quadraticCurveTo(x+17,y+20,x+19,y+15);g.stroke();g.fillStyle='#762038';g.font='bold 5.5px sans-serif';g.textAlign='center';g.fillText('CAPRI',x+17,y+31);g.restore();}
  fence(o){const g=this.g,x=o.x,y=G-38;g.save();g.fillStyle='rgba(30,35,22,.25)';g.beginPath();g.ellipse(x+21,G+2,23,3,0,0,7);g.fill();g.fillStyle='#84502e';g.strokeStyle='#3c2a1e';g.lineWidth=2;for(const px of [x+5,x+31]){g.beginPath();g.moveTo(px,y+5);g.lineTo(px+5,y);g.lineTo(px+10,y+5);g.lineTo(px+9,G);g.lineTo(px+1,G);g.closePath();g.fill();g.stroke();}g.fillStyle='#b8793d';for(const yy of [y+12,y+25]){g.beginPath();g.roundRect(x,yy,42,7,2);g.fill();g.stroke();}g.restore();}
  holeClean(o){
   const g=this.g,x=o.x+o.w/2,y=G-2;
