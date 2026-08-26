@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Paytone+One&display=swap');
 
-:root { color-scheme: dark; --cream:#fff5dc; --coffee:#e1462f; --green:#163e2c; --lime:#b9dc45; }
+:root { color-scheme: dark; --cream:#fff7e8; --coffee:#98283a; --green:#781f31; --lime:#e8c887; --wine:#98283a; --wine-dark:#5d1423; --wine-soft:#bd5364; --capri-cream:#f8ead1; }
 * { box-sizing:border-box; }
 [hidden] { display:none !important; }
 html, body { width:100%; height:100%; min-height:100%; margin:0; overflow:hidden; font-family:'DM Sans',system-ui,sans-serif; background:#143828; }
@@ -15,6 +15,8 @@ button:focus-visible, input:focus-visible { outline:3px solid #f2d35c; outline-o
 .brand b { font-family:'Paytone One',sans-serif; font-size:23px; color:#f3ce53; letter-spacing:0; }
 .brand-bean { display:grid; place-items:center; transform:rotate(45deg); width:36px; height:36px; border-radius:55% 45%; background:var(--coffee); border:3px solid #ffeeb9; box-shadow:0 4px 0 #8e261e; font-size:0; }
 .brand-bean::after { content:''; width:4px; height:23px; border-radius:99px; background:#ffeeb9; transform:rotate(-30deg); }
+.brand-capricornio { width:118px; height:74px; justify-content:center; padding:5px 10px; border:1px solid #f8ead166; border-radius:14px; background:#fff9edeb; box-shadow:0 5px 0 #5d142399,0 10px 24px #32101844; }
+.brand-capricornio img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
 .hud { display:flex; gap:4px; padding:7px; background:#174733f2; border:2px solid #dce8c888; border-radius:16px; box-shadow:0 4px 0 #0a3023aa,0 10px 20px #15362930; }
 .hud div { min-width:82px; padding:5px 12px; text-align:center; border-right:1px solid #dce8c82e; }
 .hud div:last-child { border:0; }
@@ -65,6 +67,7 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
 .gamepad-status span { color:#a9d34d; font-size:10px; }
 .gamepad-ready .gamepad-status { opacity:1; transform:none; }
 .result-card { width:min(480px,94vw); max-height:86vh; overflow:auto; padding:30px; text-align:center; color:#17382a; background:#fff7e6f2; border:3px solid white; border-radius:28px; box-shadow:0 18px 0 #113a2a,0 35px 70px #06181188; }
+.result-brand { display:block; width:92px; height:76px; margin:0 auto 8px; object-fit:contain; }
 .result-card h2 { margin:5px 0 14px; font-family:'Paytone One'; font-size:35px; }
 .final-score { display:flex; justify-content:center; align-items:baseline; gap:7px; padding:14px; border-radius:16px; background:#173e2c; color:white; }
 .final-score small { font-size:9px; letter-spacing:.1em; color:#b9dca8; }
@@ -158,3 +161,28 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
   .rotate-notice small { color:#d9ecd6; font-size:14px; }
 }
 @keyframes turnPhone { from { transform:rotate(0deg); } to { transform:rotate(90deg); } }
+
+/* Identidade Capricórnio */
+html,body { background:var(--wine-dark); }
+.hud,.sound-button,.gamepad-status { background:#741e30ed; }
+.hud { box-shadow:0 4px 0 #4b101daa,0 10px 20px #32101830; }
+.hud small,.gamepad-status span { color:#f1d79f; }
+#startScreen { background:linear-gradient(90deg,#3a0c17f5 0%,#68182be8 30%,#781f31a8 49%,transparent 74%),url('/assets/covers/rota-cafe-title-cover-v2.png') center/cover no-repeat; }
+.eyebrow { color:#641729; background:#efd08e; box-shadow:0 4px 0 #9d7429; }
+h1 em { color:#bd4055; -webkit-text-stroke:2px #fff1d7; }
+.item-guide span { background:#67182bd9; }
+.input-row { box-shadow:0 8px 0 #50111f,0 16px 30px #32101866; }
+.primary { border-color:#c65c6d; background:var(--wine); box-shadow:inset 0 -3px 0 #671727,0 4px 0 #4d101d; }
+.admin-link { color:#f5e4c7; }
+.result-card,.admin-card { color:#5e1726; background:#fff8eaf5; box-shadow:0 18px 0 #651729,0 35px 70px #32101888; }
+.final-score { background:#741e30; }
+.final-score small { color:#f0d9b1; }
+.final-score strong { color:#f0cd82; }
+.match-stats strong,.ranking-wrap li.current { color:#98283a; }
+.secondary { border-color:#7c2032; color:#7c2032; }
+.mobile-controls button { background:#7d2134ed; box-shadow:0 4px 0 #4a101dcc,0 8px 16px #0002; }
+.mobile-controls button:active { background:#9a2c40; }
+@media (pointer:coarse), (max-width:700px) {
+  #startScreen { background:linear-gradient(#4b1020df,#68182be8),url('/assets/covers/rota-cafe-title-cover-v2.png') 66% center/cover no-repeat; }
+  .brand-capricornio { width:105px; height:66px; transform:none; }
+}
