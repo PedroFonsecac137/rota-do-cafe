@@ -3,7 +3,7 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 const LEVEL=[
  ['coffee',4],['rock'],['coffee',4,'arc'],['branch'],['fence'],['platform',36],['green'],
  ['rock','branch'],['bird'],['crate','rock'],['coffee',4,'arc'],['hole'],['fence','green'],
- ['platform',46],['bees'],['rake','rock'],['coffee',4],['fence','crate'],['capriSack'],
+ ['platform',58],['bees'],['rake','rock'],['coffee',4],['fence','crate'],['capriSack'],
  ['bird'],['hole'],['platform',58],['borer','rock'],['crate','fence'],['bees'],
  ['rock','branch'],['fence','green'],['platform',58],['rake','crate'],['bird'],
  ['coffee',4,'arc'],['fence','rock'],['hole','crate'],['bees'],['rock','fence']
@@ -45,7 +45,7 @@ export class Game extends EventTarget{
   return overlaps(b);
  }
  spawn(){
-  if(this.objects.some(o=>o.x>350))return;
+  if(this.objects.some(o=>o.x>430))return;
   const pattern=LEVEL[this.stageStep%LEVEL.length];this.stageStep++;
   if(pattern[0]==='coffee'){
    const count=pattern[1],arc=pattern[2]==='arc';
