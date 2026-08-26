@@ -18,6 +18,7 @@ button:focus-visible, input:focus-visible { outline:3px solid #f2d35c; outline-o
 .brand-capricornio { position:absolute; top:18px; left:clamp(115px,18vw,250px); width:150px; height:104px; justify-content:center; padding:0; border:0; background:transparent; filter:drop-shadow(0 4px 7px #32101888); opacity:.92; }
 .brand-capricornio img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
 .game-shell.playing .brand-capricornio,.game-shell:has(#endScreen.active) .brand-capricornio { visibility:hidden; }
+.start-brand { display:block; width:150px; height:104px; margin:0 0 8px; object-fit:contain; filter:drop-shadow(0 4px 7px #32101888); }
 .hud { display:flex; gap:4px; padding:7px; background:#174733f2; border:2px solid #dce8c888; border-radius:16px; box-shadow:0 4px 0 #0a3023aa,0 10px 20px #15362930; }
 .hud div { min-width:82px; padding:5px 12px; text-align:center; border-right:1px solid #dce8c82e; }
 .hud div:last-child { border:0; }
@@ -110,6 +111,7 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
   .screen { place-items:start center; padding:max(72px,calc(env(safe-area-inset-top) + 62px)) max(14px,env(safe-area-inset-right)) max(20px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left)); background:#0b291c99; }
   #startScreen { background:linear-gradient(#09251cdb,#09251ce8),url('/assets/covers/rota-cafe-title-cover-capricornio-v1.png') 66% center/cover no-repeat; }
   .hero-card { width:100%; max-width:520px; margin:0; text-align:center; }
+  .start-brand { width:118px; height:82px; margin:0 auto 7px; }
   .eyebrow { margin-bottom:8px; padding:6px 11px; font-size:9px; }
   h1 { font-size:clamp(34px,11vw,48px); line-height:.9; }
   .lead { margin:12px auto; font-size:14px; line-height:1.4; }
