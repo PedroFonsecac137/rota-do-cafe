@@ -15,7 +15,7 @@ button:focus-visible, input:focus-visible { outline:3px solid #f2d35c; outline-o
 .brand b { font-family:'Paytone One',sans-serif; font-size:23px; color:#f3ce53; letter-spacing:0; }
 .brand-bean { display:grid; place-items:center; transform:rotate(45deg); width:36px; height:36px; border-radius:55% 45%; background:var(--coffee); border:3px solid #ffeeb9; box-shadow:0 4px 0 #8e261e; font-size:0; }
 .brand-bean::after { content:''; width:4px; height:23px; border-radius:99px; background:#ffeeb9; transform:rotate(-30deg); }
-.brand-capricornio { width:118px; height:74px; justify-content:center; padding:5px 10px; border:1px solid #f8ead166; border-radius:14px; background:#fff9edeb; box-shadow:0 5px 0 #5d142399,0 10px 24px #32101844; }
+.brand-capricornio { width:172px; height:106px; justify-content:center; padding:7px 14px; border:1px solid #f8ead166; border-radius:16px; background:#fff9edeb; box-shadow:0 6px 0 #5d142399,0 12px 28px #32101855; }
 .brand-capricornio img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
 .hud { display:flex; gap:4px; padding:7px; background:#174733f2; border:2px solid #dce8c888; border-radius:16px; box-shadow:0 4px 0 #0a3023aa,0 10px 20px #15362930; }
 .hud div { min-width:82px; padding:5px 12px; text-align:center; border-right:1px solid #dce8c82e; }
@@ -184,5 +184,5 @@ h1 em { color:#bd4055; -webkit-text-stroke:2px #fff1d7; }
 .mobile-controls button:active { background:#9a2c40; }
 @media (pointer:coarse), (max-width:700px) {
   #startScreen { background:linear-gradient(#4b1020df,#68182be8),url('/assets/covers/rota-cafe-title-cover-capricornio-v1.png') 66% center/cover no-repeat; }
-  .brand-capricornio { width:105px; height:66px; transform:none; }
+  .brand-capricornio { width:132px; height:82px; padding:5px 10px; transform:none; }
 }
