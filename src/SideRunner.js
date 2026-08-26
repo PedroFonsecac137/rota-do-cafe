@@ -38,7 +38,7 @@ export class Game extends EventTarget{
    bees:{x:o.x,y:139,w:40,h:20},
    hole:{x:o.x+3,y:G-8,w:42,h:10},
    crate:{x:o.x,y:G-33,w:32,h:32}
-   ,fence:{x:o.x-2,y:G-44,w:52,h:44}
+   ,fence:{x:o.x-5,y:G-38,w:62,h:38}
    ,capriSack:{x:o.x+2,y:o.y+1,w:29,h:34}
   };
   const b=boxes[o.type]||{x:o.x,y:o.y,w:o.w,h:o.h};
@@ -106,7 +106,7 @@ export class Game extends EventTarget{
  }
  platform(o){if(!this.platformArt){this.platformArt=new Image();this.platformArt.src='/assets/items/capri/platform-capri-v1.png';}const g=this.g,x=o.x,y=G-o.height;if(this.platformArt.complete&&this.platformArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.platformArt,x-2,y-3,o.w+4,o.height+5);g.restore();return;}this.rect(x,y,o.w,14,'#a76835');}
  capriSack(o){if(!this.sackArt){this.sackArt=new Image();this.sackArt.src='/assets/items/capri/sack-capri-v2.png';}const g=this.g,x=o.x,y=o.y,bob=Math.sin(this.t*6)*1.5;if(this.sackArt.complete&&this.sackArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.sackArt,x-4,y-5+bob,42,42);g.restore();return;}this.oval(x+16,y+19,14,18,'#e7c995');}
- fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v1.png';}const g=this.g,x=o.x,y=G-44;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-5,G-55,58,59);g.restore();return;}this.rect(x-2,y,52,44,'#9b6336');}
+ fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v2.png';}const g=this.g,x=o.x,y=G-40;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-10,y,72,40);g.restore();return;}this.rect(x-5,G-38,62,38,'#9b6336');}
  holeClean(o){
   const g=this.g,x=o.x+o.w/2,y=G-2;
   g.save();g.lineJoin='round';
