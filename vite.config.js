@@ -5,6 +5,9 @@ import { resolve } from 'node:path';
 const clean = value => String(value ?? '').replace(/[\r\n|]/g, ' ').trim();
 
 export default defineConfig({
+  server: {
+    watch: { ignored: ['**/NETLIFY_UPLOAD/**', '**/dist/**'] }
+  },
   plugins: [{
     name: 'cadastro-participantes',
     configureServer(server) {
