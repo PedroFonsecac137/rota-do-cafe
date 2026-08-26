@@ -38,7 +38,7 @@ export class Game extends EventTarget{
    bees:{x:o.x,y:139,w:40,h:20},
    hole:{x:o.x+3,y:G-8,w:42,h:10},
    crate:{x:o.x,y:G-33,w:32,h:32}
-   ,fence:{x:o.x-5,y:G-38,w:62,h:38}
+   ,fence:{x:o.x+4,y:G-30,w:44,h:30}
    ,capriSack:{x:o.x+2,y:o.y+1,w:29,h:34}
   };
   const b=boxes[o.type]||{x:o.x,y:o.y,w:o.w,h:o.h};
