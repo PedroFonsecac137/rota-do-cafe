@@ -1,11 +1,11 @@
-const W=480,H=270,G=220,DURATION=30,START_SPEED=166,SPEED_GAIN=4.9,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
+const W=480,H=270,G=220,DURATION=30,START_SPEED=168,SPEED_GAIN=5,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const LEVEL=[
  ['coffee',4],['rock'],['coffee',4,'arc'],['branch'],['fence'],['platform',36],['green'],
  ['rock','branch'],['bird'],['crate','rock'],['coffee',4,'arc'],['hole'],['fence','green'],
  ['platform',46],['bees'],['rake','rock'],['coffee',4],['fence','crate'],['capriSack'],
- ['bird'],['hole'],['platform',36],['borer','rock'],['crate','fence'],['bees'],
- ['rock','branch'],['fence','green'],['platform',46],['rake','crate'],['bird'],
+ ['bird'],['hole'],['platform',58],['borer','rock'],['crate','fence'],['bees'],
+ ['rock','branch'],['fence','green'],['platform',58],['rake','crate'],['bird'],
  ['coffee',4,'arc'],['fence','rock'],['hole','crate'],['bees'],['rock','fence']
 ];
 export class Game extends EventTarget{
@@ -53,9 +53,9 @@ export class Game extends EventTarget{
    return;
   }
   if(pattern[0]==='platform'){
-   const height=pattern[1],w=118,x=500;
+   const height=pattern[1],high=height>=58,w=high?142:118,x=500,count=high?6:5;
    this.objects.push({type:'platform',x,y:G-height,w,h:14,height,solid:true});
-   for(let i=0;i<5;i++)this.objects.push({type:'coffee',x:x+4+i*27,y:G-height-52-Math.round(Math.sin(Math.PI*i/4)*9),w:18,h:21,good:true,points:100});
+   for(let i=0;i<count;i++)this.objects.push({type:'coffee',x:x+4+i*26,y:G-height-52-Math.round(Math.sin(Math.PI*i/(count-1))*10),w:18,h:21,good:true,points:100});
    return;
   }
   if(pattern[0]==='capriSack'){
