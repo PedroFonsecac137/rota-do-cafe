@@ -39,10 +39,10 @@ export class Game extends EventTarget{
   const coffee=()=>{
    const high=Math.random()<.3;
    this.objects.push({type:'coffee',x:500,y:high?156:184,w:18,h:21,good:true,points:100});
-   if(Math.random()<.32)this.objects.push({type:'coffee',x:532,y:high?146:184,w:18,h:21,good:true,points:100});
+   if(Math.random()<.45)this.objects.push({type:'coffee',x:532,y:high?146:184,w:18,h:21,good:true,points:100});
   };
   const progress=Math.min(1,this.elapsed/DURATION);
-  const coffeeChance=.34-progress*.05;
+  const coffeeChance=.46-progress*.06;
   if(Math.random()<coffeeChance){coffee();return;}
   const easy=['rock','branch','green','borer','bird','hole','crate','rake','bees'];
   const advanced=['rock','branch','green','borer','bird','hole','crate','rake','bees','bird','hole','crate','rock','rake','bees'];
