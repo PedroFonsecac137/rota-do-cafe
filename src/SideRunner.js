@@ -1,4 +1,4 @@
-const W=480,H=270,G=220,DURATION=30,START_SPEED=142,SPEED_GAIN=3.2,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
+const W=480,H=270,G=220,DURATION=30,START_SPEED=148,SPEED_GAIN=3.6,C={sky:'#79cde7',mist:'#dff3e7',hill:'#71a865',hill2:'#4f914f',grass:'#72ad47',leaf:'#246340',leaf2:'#347d4b',soil:'#d18447',cream:'#ffe1a0',yellow:'#efbc3e',red:'#d84937',green:'#205a42',skin:'#bd7950',brown:'#704128',gray:'#737a72',dark:'#183c2c'};
 const rnd=(a,b)=>a+Math.random()*(b-a);
 export class Game extends EventTarget{
  constructor(el){super();this.container=el;this.canvas=document.createElement('canvas');this.canvas.width=W;this.canvas.height=H;el.append(this.canvas);this.g=this.canvas.getContext('2d',{alpha:false,desynchronized:true});this.renderScale=1;this.runner=new Image();this.runner.src='/assets/characters/producer-run-capricornio-v1.png';this.actions=new Image();this.actions.src='/assets/characters/producer-actions-capricornio-v1.png';this.specialActions=new Image();this.specialActions.src='/assets/characters/producer-crouch-fall-capricornio-v1.png';this.rollArt=new Image();this.rollArt.src='/assets/characters/producer-roll-capricornio-v1.png';this.itemsArt=new Image();this.itemsArt.src='/assets/items/coffee-items.png?v=3';this.farmArt=new Image();this.farmArt.src='/assets/items/farm-obstacles-v2.png?v=1';this.birdArt=new Image();this.birdArt.src='/assets/items/bird-flight-chibi-clean-v4-alpha.png?v=1';this.background=new Image();this.background.src='/assets/backgrounds/coffee-farm-chibi.png?v=4';this.mode='menu';this.t=0;this.last=performance.now();this.objects=[];this.particles=[];this.assetsReady=false;Promise.all([this.runner,this.actions,this.specialActions,this.rollArt,this.itemsArt,this.farmArt,this.birdArt,this.background].map(i=>i.decode().catch(()=>{}))).then(()=>this.assetsReady=true);addEventListener('resize',()=>this.resize());this.resize();requestAnimationFrame(n=>this.loop(n));}
@@ -30,7 +30,7 @@ export class Game extends EventTarget{
    bees:{x:o.x,y:139,w:40,h:20},
    hole:{x:o.x+3,y:G-8,w:42,h:10},
    crate:{x:o.x,y:G-33,w:32,h:32}
-   ,fence:{x:o.x,y:G-38,w:42,h:38}
+   ,fence:{x:o.x-2,y:G-44,w:52,h:44}
    ,capriSack:{x:o.x+2,y:o.y+1,w:29,h:34}
   };
   const b=boxes[o.type]||{x:o.x,y:o.y,w:o.w,h:o.h};
@@ -48,7 +48,7 @@ export class Game extends EventTarget{
    this.objects.push({type:'capriSack',x:500,y:G-38,w:33,h:38,good:true,points:0});
    return;
   }
-  if(this.elapsed>2&&Math.random()<.25){
+  if(this.elapsed>2&&Math.random()<.3){
    const height=Math.random()<.5?36:46,w=118,x=500;
    this.objects.push({type:'platform',x,y:G-height,w,h:14,height,solid:true});
    for(let i=0;i<4;i++)this.objects.push({type:'coffee',x:x+12+i*29,y:G-height-52-(i===1||i===2?8:0),w:18,h:21,good:true,points:100});
@@ -59,12 +59,12 @@ export class Game extends EventTarget{
   const easy=['rock','branch','green','borer','bird','hole','crate','rake','bees','fence'];
   const advanced=['rock','branch','green','borer','bird','hole','crate','rake','bees','fence','bird','hole','crate','rock','rake','bees','fence'];
   const pool=progress>.35?advanced:easy,type=pool[Math.floor(Math.random()*pool.length)];
-  const w=type==='branch'?38:type==='bird'||type==='bees'?40:type==='hole'?48:type==='rake'?48:type==='crate'?32:type==='fence'?42:25;
-  const h=type==='green'?22:type==='branch'?12:type==='bird'||type==='bees'?22:type==='hole'?9:type==='rake'?14:type==='crate'?31:type==='fence'?38:25;
+  const w=type==='branch'?38:type==='bird'||type==='bees'?40:type==='hole'?48:type==='rake'?48:type==='crate'?32:type==='fence'?50:25;
+  const h=type==='green'?22:type==='branch'?12:type==='bird'||type==='bees'?22:type==='hole'?9:type==='rake'?14:type==='crate'?31:type==='fence'?44:25;
   const y=type==='bird'||type==='bees'?146:G-h;
   this.objects.push({type,x:500,y,w,h,good:false,points:type==='borer'||type==='bird'||type==='bees'?-100:-70});
   if(this.elapsed>8&&Math.random()<.3&&!['bird','bees','hole','rake'].includes(type)){
-   const secondPool=['rock','branch','green','crate','fence'],second=secondPool[Math.floor(Math.random()*secondPool.length)],sw=second==='branch'?38:second==='crate'?32:second==='fence'?42:25,sh=second==='branch'?12:second==='crate'?31:second==='fence'?38:25;
+   const secondPool=['rock','branch','green','crate','fence'],second=secondPool[Math.floor(Math.random()*secondPool.length)],sw=second==='branch'?38:second==='crate'?32:second==='fence'?50:25,sh=second==='branch'?12:second==='crate'?31:second==='fence'?44:25;
    this.objects.push({type:second,x:582,y:G-sh,w:sw,h:sh,good:false,points:-70});
   }
  }
@@ -106,7 +106,7 @@ export class Game extends EventTarget{
  }
  platform(o){if(!this.platformArt){this.platformArt=new Image();this.platformArt.src='/assets/items/capri/platform-capri-v1.png';}const g=this.g,x=o.x,y=G-o.height;if(this.platformArt.complete&&this.platformArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.platformArt,x-2,y-3,o.w+4,o.height+5);g.restore();return;}this.rect(x,y,o.w,14,'#a76835');}
  capriSack(o){if(!this.sackArt){this.sackArt=new Image();this.sackArt.src='/assets/items/capri/sack-capri-v2.png';}const g=this.g,x=o.x,y=o.y,bob=Math.sin(this.t*6)*1.5;if(this.sackArt.complete&&this.sackArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.sackArt,x-4,y-5+bob,42,42);g.restore();return;}this.oval(x+16,y+19,14,18,'#e7c995');}
- fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v1.png';}const g=this.g,x=o.x,y=G-40;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-6,y-3,54,43);g.restore();return;}this.rect(x,y,42,38,'#9b6336');}
+ fence(o){if(!this.fenceArt){this.fenceArt=new Image();this.fenceArt.src='/assets/items/capri/fence-capri-v1.png';}const g=this.g,x=o.x,y=G-47;if(this.fenceArt.complete&&this.fenceArt.naturalWidth){g.save();g.imageSmoothingEnabled=true;g.drawImage(this.fenceArt,x-7,y-3,64,50);g.restore();return;}this.rect(x,y,50,44,'#9b6336');}
  holeClean(o){
   const g=this.g,x=o.x+o.w/2,y=G-2;
   g.save();g.lineJoin='round';
