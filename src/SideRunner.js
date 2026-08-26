@@ -4,9 +4,9 @@ const LEVEL=[
  ['coffee',3],['rock'],['coffee',3,'arc'],['branch'],['fence'],['platform',36],['green'],
  ['rock','branch'],['bird'],['crate','rock'],['coffee',3,'arc'],['hole'],['fence','green'],
  ['platform',46],['bees'],['rake','rock'],['coffee',3],['fence','crate'],['capriSack'],
- ['bird','rock'],['hole'],['platform',36],['borer','rock'],['crate','fence'],['bees'],
- ['rock','branch'],['fence','green'],['platform',46],['rake','crate'],['bird','fence'],
- ['coffee',3,'arc'],['fence','rock'],['hole','crate'],['bees','branch'],['rock','fence']
+ ['bird'],['hole'],['platform',36],['borer','rock'],['crate','fence'],['bees'],
+ ['rock','branch'],['fence','green'],['platform',46],['rake','crate'],['bird'],
+ ['coffee',3,'arc'],['fence','rock'],['hole','crate'],['bees'],['rock','fence']
 ];
 export class Game extends EventTarget{
  constructor(el){super();this.container=el;this.canvas=document.createElement('canvas');this.canvas.width=W;this.canvas.height=H;el.append(this.canvas);this.g=this.canvas.getContext('2d',{alpha:false,desynchronized:true});this.renderScale=1;this.runner=new Image();this.runner.src='/assets/characters/producer-run-capricornio-v1.png';this.actions=new Image();this.actions.src='/assets/characters/producer-actions-capricornio-v1.png';this.specialActions=new Image();this.specialActions.src='/assets/characters/producer-crouch-fall-capricornio-v1.png';this.rollArt=new Image();this.rollArt.src='/assets/characters/producer-roll-capricornio-v1.png';this.itemsArt=new Image();this.itemsArt.src='/assets/items/coffee-items.png?v=3';this.farmArt=new Image();this.farmArt.src='/assets/items/farm-obstacles-v2.png?v=1';this.birdArt=new Image();this.birdArt.src='/assets/items/bird-flight-chibi-clean-v4-alpha.png?v=1';this.background=new Image();this.background.src='/assets/backgrounds/coffee-farm-chibi.png?v=4';this.mode='menu';this.t=0;this.last=performance.now();this.objects=[];this.particles=[];this.assetsReady=false;Promise.all([this.runner,this.actions,this.specialActions,this.rollArt,this.itemsArt,this.farmArt,this.birdArt,this.background].map(i=>i.decode().catch(()=>{}))).then(()=>this.assetsReady=true);addEventListener('resize',()=>this.resize());this.resize();requestAnimationFrame(n=>this.loop(n));}
