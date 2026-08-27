@@ -3,9 +3,9 @@ const rnd=(a,b)=>a+Math.random()*(b-a);
 const LEVEL=[
  ['coffee',4],['rock'],['coffee',4,'arc'],['branch'],['fence'],['platform',36],['green'],
  ['rock','branch'],['bird'],['crate','rock'],['coffee',4,'arc'],['hole'],['fence','green'],
- ['platform',58],['bees'],['rake','rock'],['coffee',4],['fence','crate'],['capriSack'],
- ['bird'],['hole'],['platform',58],['borer','rock'],['crate','fence'],['bees'],
- ['rock','branch'],['fence','green'],['platform',58],['rake','crate'],['bird'],
+ ['platform',52],['bees'],['rake','rock'],['coffee',4],['fence','crate'],['capriSack'],
+ ['bird'],['hole'],['platform',52],['borer','rock'],['crate','fence'],['bees'],
+ ['rock','branch'],['fence','green'],['platform',52],['rake','crate'],['bird'],
  ['coffee',4,'arc'],['fence','rock'],['hole','crate'],['bees'],['rock','fence']
 ];
 export class Game extends EventTarget{
@@ -13,7 +13,7 @@ export class Game extends EventTarget{
  resize(){const r=this.container.getBoundingClientRect(),s=Math.max(r.width/W,r.height/H),dw=Math.ceil(W*s),dh=Math.ceil(H*s),pr=Math.max(1,Math.min(window.devicePixelRatio||1,2560/dw));Object.assign(this.canvas.style,{position:'absolute',width:`${dw}px`,height:`${dh}px`,left:'50%',top:'50%',transform:'translate(-50%,-50%)'});this.canvas.width=Math.round(dw*pr);this.canvas.height=Math.round(dh*pr);this.renderScale=this.canvas.width/W;this.g.imageSmoothingEnabled=true;this.g.imageSmoothingQuality='high';}
  emit(n,d={}){this.dispatchEvent(new CustomEvent(n,{detail:{score:this.score||0,combo:this.combo||0,time:this.time??DURATION,bonusTime:this.bonusTime||0,...d}}));}
  start(){Object.assign(this,{mode:'playing',score:0,basePoints:0,bonusPoints:0,combo:0,maxCombo:0,collected:0,mistakes:0,time:DURATION,elapsed:0,speed:START_SPEED,next:999,nextStageAt:1,y:0,vy:0,jumps:0,land:0,slide:0,slideHold:false,inv:0,rush:false,birdScheduled:true,sackSpawned:false,sacks:0,bonusTime:0,stageStep:0,dying:false,deathTimer:0,deathType:'',runStep:-1,objects:[],particles:[]});this.emit('hud');}
- jump(){if(this.mode!=='playing'||this.jumps>=2)return;this.slideHold=false;this.slide=0;this.jumps++;this.vy=this.jumps===1?230:205;this.dust(94,G-this.y-3,this.jumps===2?10:7);if(this.jumps===2)this.emit('feedback',{good:true,text:'PULO DUPLO!'});}
+ jump(){if(this.mode!=='playing'||this.jumps>=2)return;this.slideHold=false;this.slide=0;this.jumps++;this.vy=this.jumps===1?230:220;this.dust(94,G-this.y-3,this.jumps===2?10:7);if(this.jumps===2)this.emit('feedback',{good:true,text:'PULO DUPLO!'});}
  setSlide(active){if(this.mode!=='playing')return;this.slideHold=active;if(active&&this.y>1){this.vy=Math.min(this.vy,-310);return;}this.slide=active?1:0;}
  move(d){if(this.mode!=='playing')return;if(d<0){if(this.y>1){this.vy=Math.min(this.vy,-310);return;}this.slide=.6;return;}this.jump();}
  loop(n){const dt=Math.min(.034,(n-this.last)/1000);this.last=n;this.t+=dt;if(this.mode==='playing'){this.update(dt);if(this.vy===0)this.jumps=0;if(this.elapsed>=this.nextStageAt){this.spawn();this.nextStageAt+=this.stageStep<12?1.03:.86;}this.speed*=1.18;}this.draw();requestAnimationFrame(x=>this.loop(x));}
@@ -53,7 +53,7 @@ export class Game extends EventTarget{
    return;
   }
   if(pattern[0]==='platform'){
-   const height=pattern[1],high=height>=58,w=high?142:118,x=500,count=high?6:5;
+   const height=pattern[1],high=height>=52,w=high?142:118,x=500,count=high?6:5;
    this.objects.push({type:'platform',x,y:G-height,w,h:14,height,solid:true});
    for(let i=0;i<count;i++)this.objects.push({type:'coffee',x:x+4+i*26,y:G-height-52-Math.round(Math.sin(Math.PI*i/(count-1))*10),w:18,h:21,good:true,points:100});
    return;
