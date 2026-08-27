@@ -1,5 +1,7 @@
 # Rota do Café
 
+![Capa do Rota do Café com personagem usando o uniforme vermelho](public/assets/covers/rota-cafe-title-cover-capricornio-v1.png)
+
 Runner 2D em estilo chibi, ambientado em uma fazenda de café.
 
 Cada partida dura 45 segundos.
