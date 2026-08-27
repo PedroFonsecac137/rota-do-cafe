@@ -58,7 +58,7 @@ addEventListener('keydown',e=>{
 });
 addEventListener('keyup',e=>{if(e.target instanceof HTMLInputElement||e.target instanceof HTMLTextAreaElement)return;if(e.code==='KeyS'||e.key==='ArrowDown'){e.preventDefault();game.setSlide(false);}});
 addEventListener('blur',()=>game.setSlide(false));
-document.querySelectorAll('[data-action]').forEach(b=>{if(b.dataset.action==='left'){b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture?.(e.pointerId);game.setSlide(true);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>game.setSlide(false));}else b.addEventListener('pointerdown',()=>input(b.dataset.action));});
+document.querySelectorAll('[data-action]').forEach(b=>{if(b.dataset.action==='left'){b.addEventListener('pointerdown',e=>{e.preventDefault();navigator.vibrate?.(18);b.setPointerCapture?.(e.pointerId);game.setSlide(true);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>game.setSlide(false));}else b.addEventListener('pointerdown',e=>{e.preventDefault();navigator.vibrate?.(18);input(b.dataset.action);});});
 let sx=0,sy=0;game.canvas.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;});game.canvas.addEventListener('pointerup',e=>{const dy=e.clientY-sy;if(dy>35)input('left');else input('jump');});
 let padJump=false,padSlide=false,activePad='';
 function systemToast(text){const t=$('#toast');t.textContent=text;t.style.background='#174733ee';t.classList.remove('show');void t.offsetWidth;t.classList.add('show');}

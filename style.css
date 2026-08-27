@@ -101,9 +101,14 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
 .toast { position:absolute; z-index:12; top:30%; left:50%; transform:translate(-50%,-50%) scale(.8); padding:8px 15px; border-radius:99px; color:white; background:#143c2de6; font-weight:800; opacity:0; pointer-events:none; }
 .toast.show { animation:toast .75s ease; }
 @keyframes toast { 20% { opacity:1; transform:translate(-50%,-50%) scale(1); } 75% { opacity:1; transform:translate(-50%,-80%) scale(1); } }
-.mobile-controls { position:absolute; z-index:11; bottom:max(16px,env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); gap:10px; }
-.mobile-controls button { width:60px; height:54px; border:2px solid #dbe7d2aa; border-radius:15px; color:white; background:#225d44ed; box-shadow:0 4px 0 #0b2c20cc,0 8px 16px #0002; font-size:24px; transition:.08s; }
-.mobile-controls button:active { transform:translateY(3px); background:#2b7454; box-shadow:0 1px 0 #08271caa; }
+.mobile-controls { position:absolute; z-index:11; right:max(18px,env(safe-area-inset-right)); bottom:max(18px,env(safe-area-inset-bottom)); left:max(18px,env(safe-area-inset-left)); display:flex; align-items:flex-end; justify-content:space-between; pointer-events:none; }
+.mobile-controls button { position:relative; display:grid; place-items:center; width:88px; height:78px; padding:7px 8px 6px; overflow:hidden; border:2px solid #f4dfb5; border-radius:22px; color:#fff9e9; background:linear-gradient(180deg,#a9344a 0%,#781d31 100%); box-shadow:inset 0 1px 0 #ffffff4d,0 5px 0 #4a101d,0 10px 22px #21070d66; font-size:16px; touch-action:none; user-select:none; pointer-events:auto; transition:transform .07s,filter .07s,box-shadow .07s; }
+.mobile-controls button::after { content:''; position:absolute; inset:5px; border:1px solid #f7e5c43d; border-radius:16px; pointer-events:none; }
+.control-icon { display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#57142366; }
+.control-icon svg { width:30px; height:30px; fill:none; stroke:currentColor; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.control-label { position:relative; z-index:1; font-size:10px; line-height:1; font-weight:900; letter-spacing:.09em; }
+.control-label small { color:#f2cf86; font-size:9px; }
+.mobile-controls button:active { transform:translateY(4px) scale(.97); filter:brightness(1.13); box-shadow:inset 0 1px 0 #ffffff3d,0 1px 0 #4a101d,0 5px 12px #21070d55; }
 .rotate-notice { display:none; }
 .launch-warning { position:fixed; z-index:30; inset:auto 18px 18px; max-width:520px; margin:auto; padding:16px 20px; border:2px solid #ffe287; border-radius:14px; color:#fff; background:#8f2d22; box-shadow:0 10px 30px #0007; text-align:center; }
 .launch-warning strong, .launch-warning span { display:block; }
@@ -142,8 +147,7 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
   .admin-row { grid-template-columns:34px minmax(90px,1fr) auto; gap:6px; padding:9px 7px; }
   .admin-row span:nth-child(3) { display:none; }
   .gamepad-status { right:max(12px,env(safe-area-inset-right)); bottom:calc(82px + env(safe-area-inset-bottom)); }
-  .mobile-controls { width:100%; justify-content:center; padding-inline:max(12px,env(safe-area-inset-left)); }
-  .mobile-controls button { flex:0 1 86px; width:auto; min-height:52px; }
+  .mobile-controls { display:flex; }
 }
 @media (max-width:380px) {
   .brand { transform:scale(.62); }
@@ -163,8 +167,10 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
   .input-row { flex-direction:row; }
   .input-row input + input { border-top:0; border-left:1px solid #d7e2dc; }
   .privacy-check { margin-top:7px; }
-  .mobile-controls { left:auto; right:max(10px,env(safe-area-inset-right)); width:auto; transform:none; }
-  .mobile-controls button { width:58px; min-height:44px; }
+  .mobile-controls { right:max(14px,env(safe-area-inset-right)); bottom:max(12px,env(safe-area-inset-bottom)); left:max(14px,env(safe-area-inset-left)); }
+  .mobile-controls button { width:82px; height:70px; border-radius:19px; }
+  .control-icon { width:32px; height:32px; }
+  .control-icon svg { width:25px; height:25px; }
 }
 @media (pointer:coarse) and (orientation:portrait) {
   .game-shell.playing .rotate-notice { position:absolute; z-index:60; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; padding:24px; color:#fff7df; background:#102f24f5; text-align:center; }
@@ -192,8 +198,6 @@ h1 em { color:#bd4055; -webkit-text-stroke:2px #fff1d7; }
 .final-score strong { color:#f0cd82; }
 .match-stats strong,.ranking-wrap li.current { color:#98283a; }
 .secondary { border-color:#7c2032; color:#7c2032; }
-.mobile-controls button { background:#7d2134ed; box-shadow:0 4px 0 #4a101dcc,0 8px 16px #0002; }
-.mobile-controls button:active { background:#9a2c40; }
 @media (pointer:coarse), (max-width:700px) {
   #startScreen { background:linear-gradient(#4b1020df,#68182be8),url('/assets/covers/rota-cafe-title-cover-capricornio-v1.png') 66% center/cover no-repeat; }
   .brand-capricornio { top:max(8px,env(safe-area-inset-top)); left:50%; width:118px; height:82px; padding:0; transform:translateX(-50%); opacity:.9; }
