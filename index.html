@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#183d2c">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Rota do Café">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <title>Rota do Café</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -48,7 +52,10 @@
           <label class="privacy-check"><input id="privacyConsent" type="checkbox" required><span>Autorizo o uso destes dados somente para identificação no ranking e contato sobre a premiação.</span></label>
         </form>
         <div class="how-to"><span>↑</span> Pule <i></i><span>↓</span> Segure para agachar <i class="pad-separator"></i><span class="pad-key">A</span><b class="pad-copy">Pula</b><span class="pad-key">B</span><b class="pad-copy">Agacha</b></div>
-        <button class="admin-link" id="adminButton" type="button">PAINEL DO EVENTO</button>
+        <div class="app-actions">
+          <button class="install-app" id="installApp" type="button" hidden>INSTALAR APLICATIVO</button>
+          <button class="admin-link" id="adminButton" type="button">PAINEL DO EVENTO</button>
+        </div>
       </div>
     </section>
 

@@ -27,6 +27,11 @@ button:focus-visible, input:focus-visible { outline:3px solid #f2d35c; outline-o
 .sound-button { pointer-events:auto; width:42px; height:42px; border:1px solid #fff5; border-radius:50%; color:#fff; background:#173d2dbb; font-size:20px; }
 .top-actions { display:flex; gap:8px; margin-left:auto; pointer-events:auto; }
 .admin-link { margin-top:18px; padding:7px 0; border:0; border-bottom:1px solid #ffffff66; color:#e5f0df; background:transparent; font-size:9px; font-weight:800; letter-spacing:.12em; }
+.app-actions { display:flex; align-items:center; gap:14px; margin-top:18px; }
+.app-actions .admin-link { margin-top:0; }
+.install-app { padding:9px 13px; border:1px solid #f2d8a0; border-radius:9px; color:#68182b; background:#f1d79f; box-shadow:0 3px 0 #9d7429; font-size:9px; font-weight:900; letter-spacing:.1em; }
+.install-app:hover { transform:translateY(-1px); filter:brightness(1.05); }
+.installed-app .install-app { display:none!important; }
 .countdown { position:absolute; z-index:40; inset:0; display:grid; place-items:center; color:#fff3c2; background:#102f24a8; font-family:'Paytone One'; font-size:clamp(100px,20vw,240px); text-shadow:0 10px 0 #a52f23,0 18px 45px #0009; animation:countPulse .72s ease both; }
 @keyframes countPulse { from{opacity:0;transform:scale(.55)} 30%,75%{opacity:1;transform:scale(1)} to{opacity:0;transform:scale(1.25)} }
 .admin-panel { position:absolute; z-index:50; inset:0; display:grid; place-items:center; padding:20px; background:#071e16df; }
@@ -154,7 +159,7 @@ input { min-width:0; flex:1; border:0; outline:0; color:#17382a; background:tran
   h1 { font-size:34px; }
   .lead { display:none; }
   .item-guide { justify-content:center; margin-bottom:8px; }
-  .how-to,.admin-link { display:none; }
+  .how-to,.app-actions { display:none; }
   .input-row { flex-direction:row; }
   .input-row input + input { border-top:0; border-left:1px solid #d7e2dc; }
   .privacy-check { margin-top:7px; }

@@ -1,7 +1,13 @@
 import { Game } from './SideRunner.js'; import { addScore,loadRanking,clearRanking,exportRanking } from './ranking.js';
 const $=s=>document.querySelector(s),shell=$('.game-shell'),game=new Game($('#game'));let player='',phone='';
 window.__coffeeGame=game;
-if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
+if('serviceWorker'in navigator&&location.protocol!=='file:')addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').then(registration=>registration.update()).catch(()=>{}));
+let installPrompt;
+const installButton=$('#installApp');
+addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.hidden=false;});
+installButton.addEventListener('click',async()=>{if(!installPrompt)return;installPrompt.prompt();const result=await installPrompt.userChoice;if(result.outcome==='accepted')installButton.hidden=true;installPrompt=undefined;});
+addEventListener('appinstalled',()=>{installPrompt=undefined;installButton.hidden=true;});
+if(matchMedia('(display-mode: standalone)').matches||navigator.standalone)document.documentElement.classList.add('installed-app');
 const phoneInput=$('#playerPhone');
 phoneInput.addEventListener('input',()=>{
  const digits=phoneInput.value.replace(/\D/g,'').slice(0,11);
