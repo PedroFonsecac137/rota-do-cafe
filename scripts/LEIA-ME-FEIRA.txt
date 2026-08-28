@@ -1,0 +1,17 @@
+ROTA DO CAFÉ — PACOTE OFFLINE PARA FEIRA
+
+1. Extraia ou copie a pasta inteira para o computador do evento.
+2. Dê dois cliques em ABRIR_JOGO.bat.
+3. Mantenha a janela preta aberta enquanto o jogo estiver sendo usado.
+4. O navegador abrirá automaticamente com o jogo.
+
+Não é necessário instalar Node.js, npm ou qualquer outro programa.
+O jogo, as fontes, as imagens e o servidor já estão dentro desta pasta.
+
+Os cadastros também serão gravados nesta pasta, no arquivo:
+participantes-feira.txt
+
+Se o Windows exibir uma pergunta sobre acesso à rede, escolha Cancelar.
+O servidor usa somente este computador (127.0.0.1) e não precisa de internet.
+
+Senha do painel do evento: 2468

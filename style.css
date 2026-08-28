@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Paytone+One&display=swap');
+@import '@fontsource/dm-sans/latin-400.css';
+@import '@fontsource/dm-sans/latin-600.css';
+@import '@fontsource/dm-sans/latin-700.css';
+@import '@fontsource/dm-sans/latin-800.css';
+@import '@fontsource/paytone-one/latin-400.css';
 
 :root { color-scheme: dark; --cream:#fff7e8; --coffee:#98283a; --green:#781f31; --lime:#e8c887; --wine:#98283a; --wine-dark:#5d1423; --wine-soft:#bd5364; --capri-cream:#f8ead1; }
 * { box-sizing:border-box; }
